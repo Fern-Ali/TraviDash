@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiDataGrid-row.Mui-odd {
+    background-color: none;
+}
+
+.MuiDataGrid-row.Mui-even {
+    background-color: #e0f2f1;
+}
+
+.App-button {
+    width: 100%;
+}
+
+
+.logo {
+    max-height: 60px;
+}
