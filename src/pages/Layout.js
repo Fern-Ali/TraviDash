@@ -83,7 +83,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const wowee = []
+
 export default function Layout({ children }) {
     const location = useLocation();
     const { hash, pathname, search } = location;

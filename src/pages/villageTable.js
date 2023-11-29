@@ -127,16 +127,21 @@ const columns = [
     { field: 'city', headerName: 'City', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5 },
 ];
 
-const myFarmies = window.localStorage.getItem('MY_FARM_LIST');
 
-function CustomToolbar() {
+const myFarmies = window.localStorage.getItem('MY_FARM_LIST');
+function CustomToolbar({ farmies, setFarmies }) {
+    const handleSetFarmies = () => {
+        const showingFarms = myFarmies !== null ? window.localStorage.getItem('MY_FARM_LIST') : null
+        console.log(showingFarms)
+        if(showingFarms !== null) setFarmies(JSON.parse(showingFarms))
+    }
     return (
         <GridToolbarContainer>
             <GridToolbarColumnsButton />
             <GridToolbarFilterButton />
             <GridToolbarDensitySelector />
             <GridToolbarExport />
-            <Button variant="text" startIcon={<AgricultureIcon />}  size='small'> {`Show (${JSON.parse(myFarmies) ? JSON.parse(myFarmies).length : 0}) Farms`}
+            <Button variant="text" startIcon={<AgricultureIcon />} onClick={ handleSetFarmies } size='small'> {`Show (${farmies ? farmies.length : 0}) Farms`}
             </Button >
         </GridToolbarContainer>
     );
@@ -144,10 +149,11 @@ function CustomToolbar() {
 /*onClick={ setToggleFarms(!toggleFarms) }*/
 
 const VillageTable = (props) => {
-
+    
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleFarms, setToggleFarms] = useState([false]);
+    const [farmies, setFarmies] = useState([myFarmies]);
     
     useEffect(() => {
         console.log('selecting village', selectedRows)
@@ -155,6 +161,12 @@ const VillageTable = (props) => {
         
     }, [selectedRows])
 
+
+    //useEffect(() => {
+    //    const updateFarm = window.localStorage.getItem('MY_FARM_LIST');
+        
+    //    if (updateFarm !== null) setFarmies(JSON.parse(updateFarm));
+    //}, []);
 
 
     const data = props.info.map((item) => (
@@ -216,6 +228,8 @@ const VillageTable = (props) => {
                 
                 columns={columns}
                 slots={{ toolbar: CustomToolbar }}
+                slotProps={{ toolbar: { setFarmies: setFarmies, farmies: farmies } }}
+                
                 sx={{
                     margin: -2,
                     boxShadow: 2,
