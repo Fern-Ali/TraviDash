@@ -45,34 +45,34 @@ export default function Home({ curTitle }) {
     const [profileData, setProfileData] = useState(null)
     const [dashboardData, setDashboardData] = useState(null)
     const [loading, setLoading] = useState(false)
-    function getData(route) {
-        setLoading(true)
-        setOpen(true)
-        axios({
-            method: "GET",
-            /*url: `https://travdex-index.onrender.com/${route}`,*/
-            url: `http://localhost:5000/${route}`,
+    //function getData(route) {
+    //    setLoading(true)
+    //    setOpen(true)
+    //    axios({
+    //        method: "GET",
+    //        url: `https://travdex-index.onrender.com/${route}`,
+    //        //url: `http://localhost:5000/${route}`,
 
-        })
-            .then((response) => {
-                setLoading(false)
-                setOpen(false)
-                const res = response.data
-                setDashboardData(({
-                    sowDashData: res[0],
-                    bombData: res[1],
-                    fluxData: res[2],
-                    asData: res[3]
-                }))
-            }).catch((error) => {
-                if (error.response) {
-                    setLoading(false)
-                    console.log(error.response)
-                    console.log(error.response.status)
-                    console.log(error.response.headers)
-                }
-            })
-    }
+    //    })
+    //        .then((response) => {
+    //            setLoading(false)
+    //            setOpen(false)
+    //            const res = response.data
+    //            setDashboardData(({
+    //                sowDashData: res[0],
+    //                bombData: res[1],
+    //                fluxData: res[2],
+    //                asData: res[3]
+    //            }))
+    //        }).catch((error) => {
+    //            if (error.response) {
+    //                setLoading(false)
+    //                console.log(error.response)
+    //                console.log(error.response.status)
+    //                console.log(error.response.headers)
+    //            }
+    //        })
+    //}
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
