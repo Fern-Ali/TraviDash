@@ -115,7 +115,7 @@ export default function Archive() {
                             }}
                         >
 
-                            {profileData && <InactiveScatterChart info={profileData.sowData} />}
+                            {profileData && <InactiveScatterChart info={profileData.sowData.filter(person => person.inactive === true)} />}
 
 
                             {/* {profileData && <PolarChart info={profileData.sowData} />}*/}

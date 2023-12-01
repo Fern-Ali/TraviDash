@@ -23,6 +23,27 @@ export default function InactiveScatterChart({ info }) {
                 beginAtZero: true,
             },
         },
+        plugins: {
+            tooltip: {
+                callbacks: {
+
+                    //beforeBody: playerName,
+                    /* beforeLabel: playerName2,*/
+                    label: (context) => {
+                        console.log(context);
+                        return `(${context.raw.y}, ${context.raw.x}) ${context.raw.village} `;
+                    }
+                }
+            },
+            legend: {
+                position: 'chartArea',
+            },
+            title: {
+                display: true,
+                text: ' INACTIVE MAP ',
+                
+            },
+        }
     };
 
     const data = {
@@ -34,6 +55,8 @@ export default function InactiveScatterChart({ info }) {
                         
                         x: item.x,
                         y: item.y,
+                        player: item.player,
+                        village: item.village
                         
                     }
                 )),
