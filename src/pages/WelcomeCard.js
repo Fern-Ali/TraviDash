@@ -44,7 +44,7 @@ export default function WelcomeCard() {
                   {`Start by adding farms` }
                   </Typography>
                   <CardActions>
-                        <Button href="farms" variant='outlined' startIcon={<ScreenSearchDesktopIcon /> } size="small">Inactives</Button>
+                        <Button href="finder" variant='outlined' startIcon={<ScreenSearchDesktopIcon /> } size="small">Inactives</Button>
                         <Button href="advanced" variant='outlined' startIcon={<TravelExploreIcon /> } size="small">Advanced</Button>
                   </CardActions>
               </CardContent>
