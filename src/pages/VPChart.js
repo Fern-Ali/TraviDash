@@ -10,8 +10,8 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-
-
+import { purple, red, blue, green, teal, indigo, pink, orange } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -49,13 +49,24 @@ const VPChart = (props) => {
         labels,
         options: {
             responsive: true,
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'VICTORY POINTS',
+                        color: blue[300]
+                    }
+                }
+            },     
             plugins: {
                 legend: {
                     position: 'top',
+                    display: 'true'
                 },
                 title: {
                     display: true,
-                    text: 'Total Victory Points',
+                    text: 'TOP THREE ALLIANCES - VP',
+                    color: blue[800]
                 },
             },
         },

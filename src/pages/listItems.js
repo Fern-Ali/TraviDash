@@ -20,7 +20,7 @@ import Badge from '@mui/material/Badge';
 export const mainListItems = (
   <React.Fragment>
         <Link to='/' style={{ textDecoration: 'none', color: 'black'}}>
-    <ListItemButton>
+            <ListItemButton sx={{ bgcolor: 'none'}}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -69,7 +69,7 @@ export const mainListItems = (
                         <TravelExploreIcon />
                         </Badge>
                     </ListItemIcon>
-                    <ListItemText primary="World Archive" />
+                    <ListItemText primary="Inactive Map" />
                 </ListItemButton>
                 
         </Link>

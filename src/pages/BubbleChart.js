@@ -8,7 +8,7 @@ import {
 } from 'chart.js';
 import { Bubble } from 'react-chartjs-2';
 import { ResponsiveContainer } from 'recharts';
-
+import { purple, red, blue, green, teal, indigo, pink, orange } from '@mui/material/colors';
 
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
 
@@ -48,49 +48,55 @@ const BubbleChart = (props) => {
     ))
     
     
-    const playerName = (tooltipItems) => {
-        let sum = '';
-        let boo = '';
-        let idx = 0;
+    //const playerName = (tooltipItems) => {
+    //    let sum = '';
+    //    let boo = '';
+    //    let idx = 0;
 
-        //tooltipItems.forEach(function (tooltipItem) {
+    //    //tooltipItems.forEach(function (tooltipItem) {
 
-        //    idx++
-        //    sum = names[idx];
-        //    boo = tooltipItem.parsed.y;
-        //    ;
-        //});
-        tooltipItems.map((item) => (
+    //    //    idx++
+    //    //    sum = names[idx];
+    //    //    boo = tooltipItem.parsed.y;
+    //    //    ;
+    //    //});
+    //    tooltipItems.map((item) => (
             
-            boo = names[idx]
+    //        boo = names[idx]
 
-            ))
-        return `Player: ${names[idx]} ${boo}`
-    };
+    //        ))
+    //    return `Player: ${names[idx]} ${boo}`
+    //};
 
-    const playerName2 = (tooltipItem) => {
-        let sum = '';
-        let boo = '';
-        let idx = 0;
+    //const playerName2 = (tooltipItem) => {
+    //    let sum = '';
+    //    let boo = '';
+    //    let idx = 0;
 
-        //tooltipItems.forEach(function (tooltipItem) {
+    //    //tooltipItems.forEach(function (tooltipItem) {
 
-        //    idx++
-        //    sum = names[idx];
-        //    boo = tooltipItem.parsed.y;
-        //    ;
-        //});
-        names.map((item) => (
+    //    //    idx++
+    //    //    sum = names[idx];
+    //    //    boo = tooltipItem.parsed.y;
+    //    //    ;
+    //    //});
+    //    names.map((item) => (
 
-            boo = item
+    //        boo = item
 
-        ))
-        return `Player: ${names[idx]} ${boo}`
-    };
+    //    ))
+    //    return `Player: ${names[idx]} ${boo}`
+    //};
     const options = {
         scales: {
             y: {
-                beginAtZero: true,
+                beginAtZero: false,
+                title: {
+                    display: true,
+                    text: 'VICTORY POINTS',
+                    color: blue[800],
+                    padding: 0
+                }
             },
         },
         plugins: {
@@ -106,11 +112,12 @@ const BubbleChart = (props) => {
                 }
             },
             legend: {
-                position: 'top',
+                position: 'chartArea',
             },
             title: {
                 display: true,
-                text: 'Victory Points VS Population ',
+                text: ' TOP 100 PLAYERS ',
+                color: blue[800]
             },
         }
     };
@@ -184,7 +191,7 @@ const BubbleChart = (props) => {
     }
 
     return (
-        <ResponsiveContainer >
+        <ResponsiveContainer sx={{ backgroundColor: 'blue' }} >
 
             <Bubble
                 options={options}

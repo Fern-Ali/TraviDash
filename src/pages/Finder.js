@@ -218,8 +218,9 @@ export default function Finder() {
 
 
                                 {/*{loading ? <LinearProgress color="success" />  : <div></div>}*/}
-                                {loading ? <SkeletonTypography /> : <div></div>}
-                                {!loading ? <VillageTable info={profileData.sowData} pageSize={ 10 } /> : <div></div>}
+                                {/*{loading ? <SkeletonTypography /> : <div></div>}*/}
+                                {!loading ? <VillageTable info={profileData.sowData.filter(person => person.inactive === true) } pageSize={10} /> : <div></div>}
+                                
 
                                 {/*{loading ? <LinearProgress color="primary" /> : <div></div>}*/}
 

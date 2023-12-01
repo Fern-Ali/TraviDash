@@ -28,7 +28,7 @@ root.render(
                     <Route path="finder" element={<Finder />} />
                     <Route path="farms" element={<Farms />} />
                     <Route path="advanced" element={<Advanced />} />
-                    <Route path="archive" element={<Archive />} />
+                    <Route path="worlds" element={<Archive />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>
