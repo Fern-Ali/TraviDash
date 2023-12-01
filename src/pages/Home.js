@@ -281,7 +281,7 @@ export default function Home({ curTitle }) {
                                 height: '100%',
                                 backgroundColor: blue[50],
                             }}
-                                xs={12} md={4} lg={12}> {profileData &&
+                                xs={12} md={4} lg={12}> {dashboardData &&
                                     <Card sx={{ height: '100%', minWidth: 100, justifyContent: 'center' }}>
 
                                         <CardContent >
