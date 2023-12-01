@@ -115,7 +115,12 @@ export default function Archive() {
                             }}
                         >
 
-                            {profileData && <InactiveScatterChart info={profileData.sowData.filter(person => person.inactive === true)} />}
+                            {profileData && <InactiveScatterChart info={profileData.sowData.filter(person => person.inactive === true)}
+                                belowOne={profileData.sowData.filter(person => person.population >= 100 && person.population < 200 && person.inactive === true)}
+                                belowTwo={profileData.sowData.filter(person => person.population >= 200 && person.population < 300 && person.inactive === true)}
+                                belowThree={profileData.sowData.filter(person => person.population >= 300 && person.population < 400 && person.inactive === true)}
+                                belowFour={profileData.sowData.filter(person => person.population >= 400 && person.population < 500 && person.inactive === true)}
+                                belowFive={profileData.sowData.filter(person => person.population >= 500 && person.inactive === true)} />}
 
 
                             {/* {profileData && <PolarChart info={profileData.sowData} />}*/}
