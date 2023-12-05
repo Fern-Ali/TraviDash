@@ -71,7 +71,35 @@ const VPChart = (props) => {
             },
         },
         datasets: [
+            //{
+            //    type: 'line',
+            //    /*label: 'line dataset',*/
+            //    data: props.flux.map((item) => (
+            //        item.totalVP
+            //    )),
+            //    borderColor: 'rgb(255, 99, 132)',
+            //    backgroundColor: 'rgba(255, 99, 132, 0.2)'
+            //},
+            //{
+            //    type: 'line',
+            //    /*label: 'line dataset',*/
+            //    data: props.bomb.map((item) => (
+            //        item.totalVP
+            //    )),
+            //    borderColor: 'rgb(255, 99, 132)',
+            //    backgroundColor: 'rgba(153, 162, 235, 0.5)'
+            //},
+            //{
+            //    type: 'line',
+            //    /*label: 'line dataset',*/
+            //    data: props.as.map((item) => (
+            //        item.totalVP
+            //    )),
+            //    borderColor: 'rgb(255, 99, 132)',
+            //    backgroundColor: 'rgba(53, 162, 235, 0.5)'
+            //},
             {
+                type: 'bar',
                 label: 'Flux',
                 data: props.flux.map((item) => (
                     item.totalVP
@@ -79,6 +107,7 @@ const VPChart = (props) => {
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
+                type: 'bar',
                 label: '[A.S]',
                 data: props.as.map((item) => (
                     item.totalVP
@@ -86,6 +115,7 @@ const VPChart = (props) => {
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
             {
+                type: 'bar',
                 label: 'BomB',
                 data: props.bomb.map((item) => (
                     item.totalVP

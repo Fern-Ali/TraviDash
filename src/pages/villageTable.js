@@ -19,6 +19,8 @@ import { purple, red, blue, green, teal, indigo, pink, orange } from '@mui/mater
 import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import LinearProgress from '@mui/material/LinearProgress';
+import ParseNotification from "./ParseNotification";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const columns = [
     {
@@ -133,7 +135,7 @@ const columns = [
 
 
 
-function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, userFarmListLength, removeSelectedfromFarmList, selectedRows }) {
+function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, userFarmListLength, removeSelectedfromFarmList, selectedRows, addParsedFarmlist, farms, resetter, staticFarmList }) {
     const handleSetFarmies = () => {
         console.log(farmies)
         setFarmies(!farmies)
@@ -158,15 +160,108 @@ function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, 
             {/*>*/}
             {/*    <AgricultureIcon />*/}
             {/*</ToggleButton>*/}
-            <Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'  } size="small" startIcon={<LibraryAddCheckIcon /> } onClick={() => addSelectedtoFarmList()}>Add Farms</Button>
-            <Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'} size="small" startIcon={<LibraryAddCheckIcon />} onClick={() => removeSelectedfromFarmList()}>Remove Farms</Button>
+            <Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'} size="small" disabled={selectedRows.length > 0 ? false : true} startIcon={<LibraryAddCheckIcon /> } onClick={() => addSelectedtoFarmList()}>Add Farms</Button>
+            <Button variant="contained" color={selectedRows.length > 0 ? 'primary' : 'primary'} size="small" disabled={selectedRows.length > 0 ? false : true} startIcon={<HighlightOffIcon size="medium" />} onClick={() => removeSelectedfromFarmList()}>Remove Farms</Button>
+            {/*<Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'} size="small" disabled={farmies} startIcon={<LibraryAddCheckIcon />} onClick={() => addParsedFarmlist()}>Add Parsed Farms</Button>*/}
+            <ParseNotification parser={addParsedFarmlist} refresher={setFarmies} farmNumber={farms !== null ? farms.length : 0} farms={ farms } />
+            {/*<Button onClick={() => resetter(staticFarmList.map((item) => (*/}
+            {/*    {*/}
+            {/*        id: item.id,*/}
+            {/*        x: item.x,*/}
+            {/*        y: item.y,*/}
+            {/*        xy: `${item.x}, ${item.y}`,*/}
+            {/*        region: item.region,*/}
+            {/*        village: item.village,*/}
+            {/*        population: item.population,*/}
+            {/*        player: `${item.player}`,*/}
+            {/*        alliance: item.alliance ? item.alliance : '⛔',*/}
+            {/*        uid: item.uid,*/}
+            {/*        vid: item.vid,*/}
+            {/*        capital: item.capital ? '✅' : '⛔',*/}
+            {/*        harbor: item.harbor ? '✅' : '⛔',*/}
+            {/*        city: item.city ? '✅' : '⛔',*/}
+            {/*        aid: item.aid,*/}
+            {/*        inactive: item.inactive,*/}
+            {/*        vp: item.vp, harborStatus: JSON.stringify(item.harbor)*/}
+            {/*    }*/}
+            {/*)))}>resetmyshitx</Button>*/}
         </GridToolbarContainer>
     );
 }
 /*onClick={ setToggleFarms(!toggleFarms) }*/
 
 const VillageTable = (props) => {
+    function addParsedFarmlist() {
+        console.log(myDate.getUTCDate())
+        const day = myDate.getUTCDate().toString()
+        console.log(myDate.getUTCMonth() + 1)
+        console.log(myDate.getUTCDate().toString().length)
+        const month = (myDate.getUTCMonth() + 1).toString()
+        if (myDate.getUTCDate().toString().length === 1) {
+            const dateID = month.concat('0', day)
+            console.log(dateID)
+        } else {
+            const dateID = month.concat('', day)
+            console.log(dateID)
+        }
+        const myObj = {}
+        const farmingList = {}
+        props.allVillages.forEach((item) => (
+            myObj[item.id.toString().slice(4)] = item
+        ))
+        if(props.farms !== null) props.farms.forEach((item) => (
+            item in myObj ? farmingList[item] = myObj[item] : console.log(`that village isn't in your farmlist.`) 
+        ))
+        console.log(farmingList)
+        console.log(myObj)
+        const parsedFarm = Object.values(farmingList)
+        if (userFarms !== null) {
+            //selectedVillages === '[]' ? alert('Select a village to add it to your list!') : setSelectedFarms(userFarms => [...userFarms, checkedVillages])
+            
+            setSelectedFarms([...Array.from(userFarms), ...parsedFarm])
+        } else {
+            setSelectedFarms(parsedFarm)
+        }
+        const clearingDuplicatesForParser = {}
+        if (userFarms !== null) [...Array.from(userFarms), ...parsedFarm].forEach((element) => clearingDuplicatesForParser[element.vid] = element);
+        const farmListDuplicatesRemoved = Object.values(clearingDuplicatesForParser)
+        
+        //const farmlistObj = {}
+        //const selectedObj = {}
+        //if (parsedFarm.length > 0) parsedFarm.forEach((item) => (selectedObj[item.vid] = item))
+        //if (staticFarmList !== null) staticFarmList.forEach((item) => (farmlistObj[item.vid] = item))
 
+        //if (parsedFarm.length > 0) parsedFarm.forEach((item) => (
+        //    item.vid in farmlistObj ? delete farmlistObj[item.vid] : console.log('that farm is not in your list.')
+
+        //))
+        //const farmListwithValuesRemoved = Object.values(farmlistObj)
+        //setStaticFarmList(farmListwithValuesRemoved)
+        //console.log('it should update the static farm list now.')
+        props.reset(farmListDuplicatesRemoved.map((item) => (
+            {
+                id: item.id,
+                x: item.x,
+                y: item.y,
+                xy: `${item.x}, ${item.y}`,
+                region: item.region,
+                village: item.village,
+                population: item.population,
+                player: `${item.player}`,
+                alliance: item.alliance ? item.alliance : '⛔',
+                uid: item.uid,
+                vid: item.vid,
+                capital: item.capital ? '✅' : '⛔',
+                harbor: item.harbor ? '✅' : '⛔',
+                city: item.city ? '✅' : '⛔',
+                aid: item.aid,
+                inactive: item.inactive,
+                vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+            }
+        )))
+    }
+    const myDate = new Date(props.date)
+    /*console.log(myDate)*/
     function addSelectedtoFarmList() {
         const selectedVillages = window.localStorage.getItem('SELECTED_VILLAGES');
         const checkedVillages = JSON.parse(selectedVillages)
@@ -177,7 +272,27 @@ const VillageTable = (props) => {
         } else {
             setSelectedFarms(checkedVillages)
         }
-
+        props.reset(staticFarmList.map((item) => (
+            {
+                id: item.id,
+                x: item.x,
+                y: item.y,
+                xy: `${item.x}, ${item.y}`,
+                region: item.region,
+                village: item.village,
+                population: item.population,
+                player: `${item.player}`,
+                alliance: item.alliance ? item.alliance : '⛔',
+                uid: item.uid,
+                vid: item.vid,
+                capital: item.capital ? '✅' : '⛔',
+                harbor: item.harbor ? '✅' : '⛔',
+                city: item.city ? '✅' : '⛔',
+                aid: item.aid,
+                inactive: item.inactive,
+                vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+            }
+        )))
     }
 
     function removeSelectedfromFarmList() {
@@ -198,8 +313,29 @@ const VillageTable = (props) => {
         const farmListwithValuesRemoved = Object.values(farmlistObj)
         setStaticFarmList(farmListwithValuesRemoved)
         console.log('it should update the static farm list now.')
-        setFarmies(!farmies) 
-        setFarmies(!farmies) 
+        //setFarmies(!farmies)
+        //setFarmies(!farmies) 
+        props.reset(farmListwithValuesRemoved.map((item) => (
+            {
+                id: item.id,
+                x: item.x,
+                y: item.y,
+                xy: `${item.x}, ${item.y}`,
+                region: item.region,
+                village: item.village,
+                population: item.population,
+                player: `${item.player}`,
+                alliance: item.alliance ? item.alliance : '⛔',
+                uid: item.uid,
+                vid: item.vid,
+                capital: item.capital ? '✅' : '⛔',
+                harbor: item.harbor ? '✅' : '⛔',
+                city: item.city ? '✅' : '⛔',
+                aid: item.aid,
+                inactive: item.inactive,
+                vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+            }
+        )))
 
     }
 
@@ -212,6 +348,9 @@ const VillageTable = (props) => {
     const [userFarms, setUserFarms] = useState(persistentFarms);
     const [userFarmListLength, setUserFarmListLength] = useState(persistentFarms !== null ? persistentFarms.length : 0);
     const [staticFarmList, setStaticFarmList] = useState(persistentFarms !== null ? persistentFarms : [])
+    /*const [renderNewList, setRenderNewList] = useState(false)*/
+    /*props.reset(staticFarmList)*/
+
     useEffect(() => {
         console.log('adding to my farms', selectedFarms)
 
@@ -222,12 +361,12 @@ const VillageTable = (props) => {
         //let arr = JSON.parse(updatingFarms)
 
         setUserFarms(selectedFarms)
-
+        console.log('USE EFFECT FOR SELECTEDFARMS IS RUNNING')
         /*setUserFarms(farmListDuplicatesRemoved)*/
     }, [selectedFarms])
 
     useEffect(() => {
-        console.log('deleting from my farms', staticFarmList)
+        console.log('USE EFFECT FOR STATICFARMLIST IS RUNNING', staticFarmList)
 
         //SETTING MY_FARM_LIST AS THE NEW SELECTED FARMS VALUE GOTTEN IN ADDSELECTEDTOFARMLIST FORMULA.
         window.localStorage.setItem('MY_FARM_LIST', JSON.stringify(staticFarmList));
@@ -235,12 +374,20 @@ const VillageTable = (props) => {
         //const updatingFarms = window.localStorage.getItem('MY_FARM_LIST');
         //let arr = JSON.parse(updatingFarms)
         setUserFarmListLength(staticFarmList.length)
+        /*setRenderNewList(!renderNewList)*/
         /*setUserFarms(staticFarmList)*/
-
+        /*setSelectedRows([]);*/
+        
+        /*alert('Refresh')*/
         /*setUserFarms(farmListDuplicatesRemoved)*/
     }, [staticFarmList])
-
     useEffect(() => {
+        console.log('USE EFFECT FOR LEEEEEEEEENGTH STATICFARMLIST IS RUNNING', staticFarmList)
+        /*props.reset(staticFarmList)*/
+        
+    }, [userFarmListLength])
+    useEffect(() => {
+        console.log('USE EFFECT FOR userFARMS IS RUNNING')
         //const data = window.localStorage.getItem('MY_APP_STATE');
         //JSON.parse(data) === false ? setOpen(JSON.parse(data)) : console.log('open???', open)
         //console.log(data)
@@ -255,6 +402,9 @@ const VillageTable = (props) => {
         window.localStorage.setItem('MY_FARM_LIST', JSON.stringify(farmListDuplicatesRemoved));
         setStaticFarmList(farmListDuplicatesRemoved)
         setUserFarmListLength(farmListDuplicatesRemoved.length)
+
+        
+        
     }, [userFarms]);
 
     const [selectedRows, setSelectedRows] = useState([]);
@@ -282,11 +432,14 @@ const VillageTable = (props) => {
             city: item.city ? '✅' : '⛔',
             aid: item.aid,
             inactive: item.inactive,
-            vp: item.vp, harborStatus: item.harbor
+            vp: item.vp,
+            harborStatus: item.harbor,
+            date: item.date
         }
     )));
 
     useEffect(() => {
+        console.log('USE EFFECT FOR FARMIES IS RUNNING')
         console.log('SHOWING FARMS IN LIST ? ', farmies)
         window.localStorage.setItem('SHOWING_FARMIES', JSON.stringify(farmies));
 
@@ -348,16 +501,102 @@ const VillageTable = (props) => {
             ))
 
         setTableData(data)
-
+        
     }, [farmies])
     
     useEffect(() => {
+        console.log('USE EFFECT FOR SELECTEDROWS IS RUNNING')
         console.log('selecting village', selectedRows)
         window.localStorage.setItem('SELECTED_VILLAGES', JSON.stringify(selectedRows));
         
     }, [selectedRows])
 
+    //useEffect(() => {
 
+    //    const allSOWVillages = {}
+    //    const allSOWVillagesWithoutFarms = {}
+
+    //    props.info.forEach((item) => (allSOWVillages[item.vid] = item))
+
+    //    if (staticFarmList !== null) staticFarmList.forEach((item) => (allSOWVillagesWithoutFarms[item.vid] = item))
+    //    if (staticFarmList !== null) staticFarmList.forEach((item) => (
+    //        item.vid in allSOWVillages ? delete allSOWVillages[item.vid] : console.log('Well, that is an old farm.')
+    //    ))
+
+
+
+    //    const tableDataFarmsRemoved = Object.values(allSOWVillages)
+
+    //    const data = farmies === true ?
+    //        props.info.map((item) => (
+    //            {
+    //                id: item.id,
+    //                x: item.x,
+    //                y: item.y,
+    //                xy: `${item.x}, ${item.y}`,
+    //                region: item.region,
+    //                village: item.village,
+    //                population: item.population,
+    //                player: `${item.player}`,
+    //                alliance: item.alliance ? item.alliance : '⛔',
+    //                uid: item.uid,
+    //                vid: item.vid,
+    //                capital: item.capital ? '✅' : '⛔',
+    //                harbor: item.harbor ? '✅' : '⛔',
+    //                city: item.city ? '✅' : '⛔',
+    //                aid: item.aid,
+    //                inactive: item.inactive,
+    //                vp: item.vp, harborStatus: item.harbor
+    //            }
+    //        )) : tableDataFarmsRemoved.map((item) => (
+    //            {
+    //                id: item.id,
+    //                x: item.x,
+    //                y: item.y,
+    //                xy: `${item.x}, ${item.y}`,
+    //                region: item.region,
+    //                village: item.village,
+    //                population: item.population,
+    //                player: `${item.player}`,
+    //                alliance: item.alliance ? item.alliance : '⛔',
+    //                uid: item.uid,
+    //                vid: item.vid,
+    //                capital: item.capital ? '✅' : '⛔',
+    //                harbor: item.harbor ? '✅' : '⛔',
+    //                city: item.city ? '✅' : '⛔',
+    //                aid: item.aid,
+    //                inactive: item.inactive,
+    //                vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+    //            }
+    //        ))
+
+    //    setTableData(data)
+        
+    //    const currUserFarms = window.localStorage.getItem('MY_FARM_LIST');
+    //    const getFarmList = JSON.parse(currUserFarms) ? JSON.parse(currUserFarms) : null;
+    //    //props.reset(getFarmList.map((item) => (
+    //    //    {
+    //    //        id: item.id,
+    //    //        x: item.x,
+    //    //        y: item.y,
+    //    //        xy: `${item.x}, ${item.y}`,
+    //    //        region: item.region,
+    //    //        village: item.village,
+    //    //        population: item.population,
+    //    //        player: `${item.player}`,
+    //    //        alliance: item.alliance ? item.alliance : '⛔',
+    //    //        uid: item.uid,
+    //    //        vid: item.vid,
+    //    //        capital: item.capital ? '✅' : '⛔',
+    //    //        harbor: item.harbor ? '✅' : '⛔',
+    //    //        city: item.city ? '✅' : '⛔',
+    //    //        aid: item.aid,
+    //    //        inactive: item.inactive,
+    //    //        vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+    //    //    }
+    //    //)))
+    //    console.log(getFarmList)
+    //}, [setRenderNewList])
     //useEffect(() => {
     //    const updateFarm = window.localStorage.getItem('MY_FARM_LIST');
 
@@ -393,7 +632,11 @@ const VillageTable = (props) => {
                     userFarms: userFarms,
                     userFarmListLength: userFarmListLength,
                     removeSelectedfromFarmList: removeSelectedfromFarmList,
-                    selectedRows: selectedRows
+                    selectedRows: selectedRows,
+                    addParsedFarmlist: addParsedFarmlist,
+                    farms: props.farms,
+                    resetter: props.reset,
+                    staticFarmList: staticFarmList
                 }
             }}
                 
@@ -429,7 +672,9 @@ const VillageTable = (props) => {
                     selectedIDs.has(row.id)
                 );
                 setSelectedRows(selectedRows);
+
             }}
+                /*selectionModel={selectedRows}*/
 
             />
        /* </Box>*/

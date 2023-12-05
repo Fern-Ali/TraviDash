@@ -38,6 +38,9 @@ export default function Finder() {
     };
     const [profileData, setProfileData] = useState(null)
     const [loading, setLoading] = useState(false)
+    const currUserFarms = window.localStorage.getItem('MY_FARM_LIST');
+    const getFarmList = JSON.parse(currUserFarms) ? JSON.parse(currUserFarms) : null;
+    const [farmList, setFarmList] = useState(getFarmList)
     function getData(route) {
         setLoading(true)
         setOpen(true)
@@ -91,7 +94,7 @@ export default function Finder() {
         }
 
         fetchData();
-    }, []);
+    }, [farmList]);
     return (
         
         <Box
@@ -219,7 +222,7 @@ export default function Finder() {
 
                                 {/*{loading ? <LinearProgress color="success" />  : <div></div>}*/}
                                 {/*{loading ? <SkeletonTypography /> : <div></div>}*/}
-                                {!loading ? <VillageTable info={profileData.sowData.filter(person => person.inactive === true) } pageSize={10} /> : <div></div>}
+                                {!loading ? <VillageTable reset={ setFarmList } info={profileData.sowData.filter(person => person.inactive === true)} farms={null} pageSize={10} /> : <div></div>}
                                 
 
                                 {/*{loading ? <LinearProgress color="primary" /> : <div></div>}*/}

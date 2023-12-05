@@ -4,6 +4,7 @@ import Chart from './Chart';
 import PolarChart from './PolarChart';
 import VPChart from './VPChart';
 import BubbleChart from './BubbleChart';
+import BubbleChartVillage from './BubbleChartVillage';
 import WelcomeCard from './WelcomeCard';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -34,7 +35,10 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
+
+
 export default function Home({ curTitle }) {
+    
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -80,7 +84,7 @@ export default function Home({ curTitle }) {
             axios({
                 method: "GET",
                 url: `https://travdex-index.onrender.com/dashboard`,
-                /*url: `http://localhost:5000/dashboard`,*/
+                //url: `http://localhost:5000/dashboard`,
 
             })
                 .then((response) => {
@@ -91,7 +95,8 @@ export default function Home({ curTitle }) {
                         sowDashData: res[0],
                         bombData: res[1],
                         fluxData: res[2],
-                        asData: res[3]
+                        asData: res[3],
+                        topHundredData: res[4]
 
                     }))
                 }).catch((error) => {
@@ -158,9 +163,11 @@ export default function Home({ curTitle }) {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
+            
             <Toolbar />
             <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
+                    
 
                     <Grid item xs={12} md={4} lg={3}>
                         <Paper
@@ -173,7 +180,8 @@ export default function Home({ curTitle }) {
                             }}
                         >
                             
-
+                            
+                            
                             <LoadingButton
                                 size="small"
                                 onClick={() => getData('dashboard')}
@@ -294,7 +302,10 @@ export default function Home({ curTitle }) {
 
 
 
-                                    </Card>}
+                                        </Card>}
+
+
+
                             </Paper>
 
                             }
@@ -302,6 +313,66 @@ export default function Home({ curTitle }) {
                             
 
                             
+                            {/*{profileData && <VPChart flux={profileData.fluxData} as={profileData.asData} bomb={profileData.bombData } />}*/}
+
+                        </Paper>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                /*height: '100%',*/
+                                backgroundColor: blue[100]
+                            }}
+                        >
+                            <Box sx={{ paddingTop: 0, margin: 0, }}>
+                                {loading ? <LinearProgress color="success" /> : <div></div>}
+                            </Box>
+
+                            {!profileData ? <Paper sx={{
+                                p: 1,
+                                marginTop: 1,
+                                marginBottom: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                backgroundColor: blue[50],
+                            }}
+                                xs={12} md={4} lg={12}> {!profileData &&
+                                    <SkeletonTypography />}
+                            </Paper> : <Paper sx={{
+                                p: 1,
+                                marginTop: 1,
+                                marginBottom: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                backgroundColor: blue[50],
+                            }}
+                                xs={12} md={4} lg={12}> {dashboardData &&
+                                    <Card sx={{ height: '100%', minWidth: 100, justifyContent: 'center' }}>
+
+                                        <CardContent >
+                                            <BubbleChartVillage test={dashboardData.topHundredData} />
+
+                                            <CardActions>
+
+                                            </CardActions>
+                                        </CardContent>
+
+
+
+                                    </Card>}
+
+
+
+                            </Paper>
+
+                            }
+
+
+
+
                             {/*{profileData && <VPChart flux={profileData.fluxData} as={profileData.asData} bomb={profileData.bombData } />}*/}
 
                         </Paper>
