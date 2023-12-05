@@ -128,7 +128,7 @@ const BubbleChartVillage = (props) => {
 
             data: props.test.map((item) => (
 
-                { x: item.population, y: item.vp, r: item.vp / item.population, player: item.player, village: item.village }
+                { x: item.population, y: item.vp, r: item.numVillages, player: item.player, village: item.village }
                 
             )),
             backgroundColor: colorPicker[92]
@@ -137,6 +137,8 @@ const BubbleChartVillage = (props) => {
         }))
         
     }
+
+   
     //const data = {
     //    datasets: props.test.map((item) => (
     //        {

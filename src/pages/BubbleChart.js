@@ -116,7 +116,7 @@ const BubbleChart = (props) => {
             },
             title: {
                 display: true,
-                text: ' TOP 100 PLAYERS ',
+                text: '  VP DISTRIBUTION - TOP 3 ALLIANCES  ',
                 color: blue[800]
             },
         }
@@ -128,7 +128,7 @@ const BubbleChart = (props) => {
 
             data: props.test.map((item) => (
 
-                { x: item.totalPop, y: item.vp, r: item.numVillages, player: item.player }
+                { x: item.totalPop, y: item.vp, r: item.vp/item.numVillages, player: item.player }
                 
             )),
             backgroundColor: colorPicker[92]
@@ -147,7 +147,7 @@ const BubbleChart = (props) => {
             
     //        )),
     //}
-     
+     /*OTHER RADIUS = r: (item.sumVP / item.numVillages)*/
     const data2 = {
         datasets: [
             {
@@ -155,7 +155,7 @@ const BubbleChart = (props) => {
 
                 data: fluxData.map((item) => (
 
-                    { x: item.totalPop, y: item.sumVP, r: item.numVillages, player: item.player }
+                    { x: item.totalPop, y: item.sumVP, r: item.numVillages, player: item.player, test: (item.sumVP / item.numVillages)/100 }
 
                 )),
                 backgroundColor: colorPicker[92]
@@ -167,7 +167,7 @@ const BubbleChart = (props) => {
 
                 data: asData.map((item) => (
 
-                    { x: Number(item.totalPop), y: item.sumVP, r: Number(item.numVillages), player: item.player }
+                    { x: Number(item.totalPop), y: item.sumVP, r: item.numVillages, player: item.player }
 
                 )),
                 backgroundColor: colorPicker[1]
@@ -179,7 +179,7 @@ const BubbleChart = (props) => {
 
                 data: bombData.map((item) => (
 
-                    { x: Number(item.totalPop), y: item.sumVP, r: Number(item.numVillages), player: item.player }
+                    { x: Number(item.totalPop), y: item.sumVP, r: item.numVillages, player: item.player }
 
                 )),
                 backgroundColor: colorPicker[22]
