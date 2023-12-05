@@ -189,9 +189,12 @@ export default function Farms() {
                     <Grid item xs={12} md={4} lg={12}>
                         <form onSubmit={handleSubmitFarmList} id="parsingForm">
                         <FormControl>
-                            <InputLabel htmlFor="my-input">Parse Farm List</InputLabel>
+                            <InputLabel htmlFor="my-input">Paste Farm List Here: Open desired lists, ctrl+a, ctrl+c, ctrl+v. Wait a moment, and hit enter. </InputLabel>
                             <Input onPaste={handlePaste} type="text" id="parseMe" autoComplete="no" aria-describedby="my-helper-text" />
-                            <FormHelperText id="my-helper-text">Open all lists, ctrl+a, ctrl+c, ctrl+v. Wait a moment, and hit enter. Be a little patient. You have a huge raidlist!</FormHelperText>
+                                <FormHelperText id="my-helper-text">
+                                    
+                                    (Be a little patient. You have a huge raidlist!)
+                                    When able, click "Add Parsed Farms" and confirm to add your farms to your TraviDex Farmlist.</FormHelperText>
                             </FormControl>
                         </form>
                     </Grid>
