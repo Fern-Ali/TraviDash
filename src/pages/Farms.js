@@ -191,7 +191,7 @@ export default function Farms() {
                         <FormControl>
                             <InputLabel htmlFor="my-input">Parse Farm List</InputLabel>
                             <Input onPaste={handlePaste} type="text" id="parseMe" autoComplete="no" aria-describedby="my-helper-text" />
-                            <FormHelperText id="my-helper-text">Open all lists, ctrl+a, ctrl+c. Paste above!</FormHelperText>
+                            <FormHelperText id="my-helper-text">Open all lists, ctrl+a, ctrl+c, ctrl+v. Wait a moment, and hit enter. Be a little patient. You have a huge raidlist!</FormHelperText>
                             </FormControl>
                         </form>
                     </Grid>
