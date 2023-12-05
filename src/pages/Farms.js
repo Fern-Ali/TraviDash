@@ -49,7 +49,7 @@ export default function Farms() {
         const fetchMyData = async () => {
             setLoading(true);
             setOpen(true)
-            axios.post("http://localhost:5000/parser", {
+            axios.post("https://travdex-index.onrender.com/parser", {
                 text: dataToBeParsed
             })
                 .then((response) => {
