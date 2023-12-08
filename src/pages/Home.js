@@ -66,7 +66,8 @@ export default function Home({ curTitle }) {
                     sowDashData: res[0],
                     bombData: res[1],
                     fluxData: res[2],
-                    asData: res[3]
+                    asData: res[3],
+                    topHundredData: res[4]
                 }))
             }).catch((error) => {
                 if (error.response) {

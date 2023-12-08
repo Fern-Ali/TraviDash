@@ -746,7 +746,7 @@ const VillageTable = (props) => {
         //</div>
         /* <Box ClassName="App-table-header"  sx={{ height: '100%', width: '100%' }}>*/
 
-            <DataGrid 
+            <DataGrid getRowHeight={() => 'auto'}
                 rows={tableData
                 }
                 
