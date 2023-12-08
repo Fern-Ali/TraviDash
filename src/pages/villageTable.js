@@ -148,7 +148,7 @@ const columns = [
     { field: 'capital', headerName: 'Capital', headerClassName: 'App-table-header', align: 'right', minWidth: 70, flex: 0.5 },
     { field: 'harbor', headerName: 'Harbor', headerClassName: 'App-table-header', align: 'right', minWidth: 70, flex: 0.5 },
     { field: 'city', headerName: 'City', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5 },
-    { field: 'distance', headerName: 'Distance', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5 },
+    { field: 'distance', headerName: 'Distance', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5, type: 'number' },
     
 ];
 
@@ -225,7 +225,7 @@ function CustomToolbar({ info, textInputX, textInputY, setTextInputX, setTextInp
                 aid: item.aid,
                 inactive: item.inactive,
                 vp: item.vp, harborStatus: JSON.stringify(item.harbor),
-                distance: '-'
+                distance: null
             }
         )))
         }
@@ -562,7 +562,7 @@ const VillageTable = (props) => {
             vp: item.vp,
             harborStatus: item.harbor,
             date: item.date,
-            distance: distance ? distance : '-'
+            distance: distance ? distance : null
         }
     )));
 
@@ -605,7 +605,7 @@ const VillageTable = (props) => {
                     aid: item.aid,
                     inactive: item.inactive,
                     vp: item.vp, harborStatus: item.harbor,
-                    distance: distance ? distance : '-'
+                    distance: distance ? distance : null
                 }
             )) : tableDataFarmsRemoved.map((item) => (
                 {
@@ -626,7 +626,7 @@ const VillageTable = (props) => {
                     aid: item.aid,
                     inactive: item.inactive,
                     vp: item.vp, harborStatus: JSON.stringify(item.harbor),
-                    distance: distance ? distance : '-'
+                    distance: distance ? distance : null
                 }
             ))
 
