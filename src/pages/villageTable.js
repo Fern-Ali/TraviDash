@@ -315,8 +315,8 @@ function CustomToolbar({ info, textInputX, textInputY, setTextInputX, setTextInp
 
 const VillageTable = (props) => {
     
-    const [textInputX, setTextInputX] = useState('x');
-    const [textInputY, setTextInputY] = useState('y');
+    const [textInputX, setTextInputX] = useState(0);
+    const [textInputY, setTextInputY] = useState(0);
     const distance = []
     function addParsedFarmlist() {
         console.log(myDate.getUTCDate())
