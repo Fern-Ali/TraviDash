@@ -20,7 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import ParseNotification from "./ParseNotification";
-import DistanceNotification from "./DistanceNotification";
+
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import FilledInput from '@mui/material/FilledInput';
