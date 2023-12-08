@@ -1,6 +1,6 @@
 ﻿// JavaScript source code
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { GridToolbarContainer,
@@ -20,7 +20,25 @@ import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import ParseNotification from "./ParseNotification";
+import DistanceNotification from "./DistanceNotification";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+import FilledInput from '@mui/material/FilledInput';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import RepartitionIcon from '@mui/icons-material/Repartition';
+import RepartitionIcon2 from '@mui/icons-material/RepartitionTwoTone';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 const columns = [
     {
@@ -38,7 +56,7 @@ const columns = [
         headerAlign: 'left',
         minWidth: 90,
         renderCell: (params) => {
-            return <a class="App-retro-button" target="_blank"  href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}` }>({params.row.x}, {params.row.y})</a>;
+            return <a class="App-retro-button" target="_blank" href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}`}>({params.row.x}, {params.row.y})</a>;
             /*return <ColorButton size="small" bg={pink[500]} fg={pink[700]} className="App-button" variant="filledTonal" href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}`}> ({params.row.x}, {params.row.y}) </ColorButton>;*/
         },
         flex: 0.5,
@@ -52,7 +70,7 @@ const columns = [
         type: 'number',
         minWidth: 90,
         editable: false,
-        flex:   0.5,
+        flex: 0.5,
     },
     {
         field: 'vp',
@@ -90,7 +108,7 @@ const columns = [
         flex: 0.5,
         renderCell: (params) => {
             //return <a class="" href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}`}>{params.row.village}</a>
-            return <ColorButton size="small" fg={blue[400]} bg={blue[300]} className="App-button" variant="filledTonal" target="_blank" href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}`}> {params.row.village} </ColorButton> ;
+            return <ColorButton size="small" fg={blue[400]} bg={blue[300]} className="App-button" variant="filledTonal" target="_blank" href={`https://sow.x1.europe.travian.com/karte.php?x=${params.row.x}&y=${params.row.y}`}> {params.row.village} </ColorButton>;
         },
     },
 
@@ -127,20 +145,91 @@ const columns = [
             return <ColorButton color="" size="small" fg={purple[200]} bg={purple[500]} className="App-button" variant="filledTonal" target="_blank" href={`https://sow.x1.europe.travian.com/alliance/${params.row.aid}`}> {params.row.alliance} </ColorButton>;
         },
     },
-    { field: 'capital', headerName: 'Capital', headerClassName: 'App-table-header', align: 'right', minWidth: 70, flex: 0.5},
+    { field: 'capital', headerName: 'Capital', headerClassName: 'App-table-header', align: 'right', minWidth: 70, flex: 0.5 },
     { field: 'harbor', headerName: 'Harbor', headerClassName: 'App-table-header', align: 'right', minWidth: 70, flex: 0.5 },
     { field: 'city', headerName: 'City', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5 },
+    { field: 'distance', headerName: 'Distance', headerClassName: 'App-table-header', headerAlign: 'left', align: 'right', minWidth: 70, flex: 0.5 },
+    
 ];
 
 
 
 
-function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, userFarmListLength, removeSelectedfromFarmList, selectedRows, addParsedFarmlist, farms, resetter, staticFarmList }) {
+function CustomToolbar({ info, textInputX, textInputY, setTextInputX, setTextInputY, setTableData, farmies, setFarmies, addSelectedtoFarmList, userFarms, userFarmListLength, removeSelectedfromFarmList, selectedRows, addParsedFarmlist, farms, resetter, staticFarmList }) {
     const handleSetFarmies = () => {
         console.log(farmies)
         setFarmies(!farmies)
         console.log(farmies)
     }
+    
+    const [distanceToggle, setDistanceToggle] = useState(false);
+
+    const handleTextInputXChange = event => {
+        setTextInputX(event.target.value);
+        
+    };
+    const handleTextInputYChange = event => {
+        setTextInputY(event.target.value);
+        
+    };
+
+    const handleTextInputSubmit = event => {
+        //textInput;
+        ///*its going to be a string separated by a comma. get two numbers in between commas and do the math. maybe, if parens splice parens.*/
+        //const rx = 0
+        //const ry = 0
+        //resetter
+        event.preventDefault();
+        if (textInputY > -201 && textInputY < 201 && textInputX > -201 && textInputX < 201) {
+
+        
+        setDistanceToggle(!distanceToggle)
+        distanceToggle === false ? 
+        setTableData(info.map((item) => (
+            {
+                id: item.id,
+                x: item.x,
+                y: item.y,
+                xy: `${item.x}, ${item.y}`,
+                region: item.region,
+                village: item.village,
+                population: item.population,
+                player: `${item.player}`,
+                alliance: item.alliance ? item.alliance : '⛔',
+                uid: item.uid,
+                vid: item.vid,
+                capital: item.capital ? '✅' : '⛔',
+                harbor: item.harbor ? '✅' : '⛔',
+                city: item.city ? '✅' : '⛔',
+                aid: item.aid,
+                inactive: item.inactive,
+                vp: item.vp, harborStatus: JSON.stringify(item.harbor),
+                distance: Math.sqrt(((textInputX-item.x)**2 + (textInputY-item.y)**2)).toFixed(2)
+            }
+        ))) : setTableData(info.map((item) => (
+            {
+                id: item.id,
+                x: item.x,
+                y: item.y,
+                xy: `${item.x}, ${item.y}`,
+                region: item.region,
+                village: item.village,
+                population: item.population,
+                player: `${item.player}`,
+                alliance: item.alliance ? item.alliance : '⛔',
+                uid: item.uid,
+                vid: item.vid,
+                capital: item.capital ? '✅' : '⛔',
+                harbor: item.harbor ? '✅' : '⛔',
+                city: item.city ? '✅' : '⛔',
+                aid: item.aid,
+                inactive: item.inactive,
+                vp: item.vp, harborStatus: JSON.stringify(item.harbor),
+                distance: '-'
+            }
+        )))
+        }
+    };
     return (
         <GridToolbarContainer sx={{ p: 1, bgcolor: blue[100] } }>
             <Button size="small" variant={farmies === false ? "contained" : "contained"} color={ farmies === false ? "primary" : "secondary" } selected="true" startIcon={<AgricultureIcon />} selected="true" onClick={() => handleSetFarmies()} > {farmies === false ? `Show (${userFarms !== null ? userFarmListLength : 0}) Farms` /*${farmies}*/ : `Hide (${userFarms !== null ? userFarmListLength : 0}) Farms` /*${farmies}*/}
@@ -163,7 +252,41 @@ function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, 
             <Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'} size="small" disabled={selectedRows.length > 0 ? false : true} startIcon={<LibraryAddCheckIcon /> } onClick={() => addSelectedtoFarmList()}>Add Farms</Button>
             <Button variant="contained" color={selectedRows.length > 0 ? 'primary' : 'primary'} size="small" disabled={selectedRows.length > 0 ? false : true} startIcon={<HighlightOffIcon size="medium" />} onClick={() => removeSelectedfromFarmList()}>Remove Farms</Button>
             {/*<Button variant="contained" color={selectedRows.length > 0 ? 'secondary' : 'primary'} size="small" disabled={farmies} startIcon={<LibraryAddCheckIcon />} onClick={() => addParsedFarmlist()}>Add Parsed Farms</Button>*/}
-            <ParseNotification parser={addParsedFarmlist} refresher={setFarmies} farmNumber={farms !== null ? farms.length : 0} farms={ farms } />
+            <ParseNotification parser={addParsedFarmlist} refresher={setFarmies} farmNumber={farms !== null ? farms.length : 0} farms={farms} />
+            <form noValidate autoComplete='off'>
+            <TextField
+                label="x"
+                id="outlined-size-small"
+                
+                size="small"
+                sx={{ maxWidth: 75,}}
+                hiddenLabel
+                value={textInputX}
+                onChange={handleTextInputXChange}
+                onSubmit={handleTextInputSubmit}
+                variant="outlined"
+                focused
+                />
+            <TextField
+                label="y"
+                id="outlined-size-small"
+                
+                size="small"
+                sx={{ marginLeft: 1, maxWidth: 75 }}
+                variant="standard"
+                hiddenLabel
+                value={textInputY}
+                onChange={handleTextInputYChange}
+                onSubmit={handleTextInputSubmit}
+                color="primary"
+                variant="outlined"
+                focused
+                />
+            </form>
+            <FormControlLabel color="primary" control={<Checkbox size="medium" icon={<BookmarkBorderIcon color="primary" />} checkedIcon={<BookmarkAddedIcon color="info" />} onChange={handleTextInputSubmit} checked={distanceToggle} />}
+                label={<Button variant={'contained'} color={distanceToggle === true ? 'warning' : 'warning'} onClick={handleTextInputSubmit} size="small" disabled={ textInputY > -201 && textInputY < 201 && textInputX > -201 && textInputX < 201 ? false : true}  > Distance</Button>} />
+            {/*startIcon={<LibraryAddCheckIcon />}*/}
+
             {/*<Button onClick={() => resetter(staticFarmList.map((item) => (*/}
             {/*    {*/}
             {/*        id: item.id,*/}
@@ -191,6 +314,10 @@ function CustomToolbar({ farmies, setFarmies, addSelectedtoFarmList, userFarms, 
 /*onClick={ setToggleFarms(!toggleFarms) }*/
 
 const VillageTable = (props) => {
+    
+    const [textInputX, setTextInputX] = useState('x');
+    const [textInputY, setTextInputY] = useState('y');
+    const distance = []
     function addParsedFarmlist() {
         console.log(myDate.getUTCDate())
         const day = myDate.getUTCDate().toString()
@@ -434,7 +561,8 @@ const VillageTable = (props) => {
             inactive: item.inactive,
             vp: item.vp,
             harborStatus: item.harbor,
-            date: item.date
+            date: item.date,
+            distance: distance ? distance : '-'
         }
     )));
 
@@ -476,7 +604,8 @@ const VillageTable = (props) => {
                     city: item.city ? '✅' : '⛔',
                     aid: item.aid,
                     inactive: item.inactive,
-                    vp: item.vp, harborStatus: item.harbor
+                    vp: item.vp, harborStatus: item.harbor,
+                    distance: distance ? distance : '-'
                 }
             )) : tableDataFarmsRemoved.map((item) => (
                 {
@@ -496,7 +625,8 @@ const VillageTable = (props) => {
                     city: item.city ? '✅' : '⛔',
                     aid: item.aid,
                     inactive: item.inactive,
-                    vp: item.vp, harborStatus: JSON.stringify(item.harbor)
+                    vp: item.vp, harborStatus: JSON.stringify(item.harbor),
+                    distance: distance ? distance : '-'
                 }
             ))
 
@@ -636,7 +766,13 @@ const VillageTable = (props) => {
                     addParsedFarmlist: addParsedFarmlist,
                     farms: props.farms,
                     resetter: props.reset,
-                    staticFarmList: staticFarmList
+                    staticFarmList: staticFarmList,
+                    setTableData: setTableData,
+                    setTextInputX: setTextInputX,
+                    setTextInputY: setTextInputY,
+                    textInputX: textInputX,
+                    textInputY: textInputY,
+                    info: props.info
                 }
             }}
                 
