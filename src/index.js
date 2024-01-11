@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Finder from "./pages/Finder";
 import Farms from "./pages/Farms";
+import CheckoutForm from "./pages/CheckoutForm";
+import Return from "./pages/Return";
 import Advanced from "./pages/Advanced";
 import Archive from "./pages/Archive";
 import NoPage from "./pages/404";
@@ -29,6 +31,8 @@ root.render(
                     <Route path="farms" element={<Farms />} />
                     <Route path="advanced" element={<Advanced />} />
                     <Route path="worlds" element={<Archive />} />
+                    <Route path="checkout" element={<CheckoutForm />} />
+                    <Route path="return" element={<Return />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

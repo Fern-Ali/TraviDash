@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRef } from 'react';
 import { ResponsiveContainer } from 'recharts';
 import {
   Chart as ChartJS,
@@ -8,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Scatter } from 'react-chartjs-2';
+import { Scatter, getElementsAtEvent } from 'react-chartjs-2';
 
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -16,7 +17,7 @@ ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 
 export default function InactiveScatterChart({ info, belowOne, belowTwo, belowThree, belowFour, belowFive }) {
-
+    const currEvent=[]
     const options = {
         scales: {
             y: {
@@ -30,8 +31,10 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                     //beforeBody: playerName,
                     /* beforeLabel: playerName2,*/
                     label: (context) => {
-                        console.log(context);
-                        return `(${context.raw.y}, ${context.raw.x}) ${context.raw.village} `;
+                        // console.log(context);
+                        currEvent[0] = context;
+                        console.log(currEvent)
+                        return `(${context.raw.x}, ${context.raw.y}) ${context.raw.village} `;
                     }
                 }
             },
@@ -56,7 +59,8 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         x: item.x,
                         y: item.y,
                         player: item.player,
-                        village: item.village
+                        village: item.village,
+                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
                         
                     }
                 )),
@@ -70,7 +74,8 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         x: item.x,
                         y: item.y,
                         player: item.player,
-                        village: item.village
+                        village: item.village,
+                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -84,7 +89,8 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         x: item.x,
                         y: item.y,
                         player: item.player,
-                        village: item.village
+                        village: item.village,
+                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -98,7 +104,8 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         x: item.x,
                         y: item.y,
                         player: item.player,
-                        village: item.village
+                        village: item.village,
+                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -112,7 +119,8 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         x: item.x,
                         y: item.y,
                         player: item.player,
-                        village: item.village
+                        village: item.village,
+                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -120,6 +128,15 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
             },
         ],
     };
-
-    return <ResponsiveContainer><Scatter options={options} data={data} /></ResponsiveContainer>;
+    const chartRef = useRef();
+    const onClick = (event) => {
+        if(getElementsAtEvent(chartRef.current, event).length > 0) {
+            console.log(getElementsAtEvent(chartRef.current, event))
+            console.log(currEvent[0].element.$context.raw.link)
+            window.open(currEvent[0].element.$context.raw.link, '_blank')
+        }
+        
+        
+    }
+    return <ResponsiveContainer><Scatter onClick={onClick} ref={chartRef} options={options} data={data} /></ResponsiveContainer>;
 }

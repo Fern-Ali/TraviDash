@@ -27,7 +27,7 @@ import logo from '../static/media/Trav.png';
 //function Copyright(props) {
 //    return (
 //        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//            {'Copyright © '}
+//            {'Copyright ï¿½ '}
 //            <Link color="inherit" href="https://mui.com/">
 //                TraviDex
 //            </Link>{' '}
@@ -94,9 +94,11 @@ export default function Layout({ children }) {
         { path: '/', title: 'Welcome to TraviDex!' },
         { path: '/home', title: 'Home' },
         { path: '/farms', title: 'My Farms' },
-        { path: '/finder', title: 'Farm Finder' },
-        { path: '/advanced', title: 'Advanced Search' },
-        { path: '/worlds', title: 'Inactive Locator Map' }
+        { path: '/finder', title: 'Farm Finder - Complete Index of Currently Inactive Villages' },
+        { path: '/advanced', title: 'Advanced Search - Complete Index of All Current Villages' },
+        { path: '/worlds', title: 'Inactive Locator Map - Find Inactives Visually' },
+        { path: '/checkout', title: 'Subscribe to TraviDex - Optimize your Results!' },
+        { path: '/return', title: 'Thank you from TraviDex!' }
     ]
     const curTitle = titleMap.find(item => item.path === pathname)
 

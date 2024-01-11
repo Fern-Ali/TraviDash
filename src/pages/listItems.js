@@ -18,6 +18,8 @@ import { Link } from "react-router-dom"
 import Badge from '@mui/material/Badge';
 
 export const mainListItems = (
+
+
   <React.Fragment>
         <Link to='/' style={{ textDecoration: 'none', color: 'black'}}>
             <ListItemButton sx={{ bgcolor: 'none'}}>
@@ -52,7 +54,7 @@ export const mainListItems = (
             
                 <ListItemButton>
                     <ListItemIcon>
-                        <Badge color="secondary" badgeContent={'TBD'}>
+                        <Badge color="secondary" badgeContent={'Live'}>
                             <BarChartIcon />
                         </Badge>
                     </ListItemIcon>
@@ -65,7 +67,7 @@ export const mainListItems = (
             
                 <ListItemButton>
                 <ListItemIcon>
-                    <Badge color="secondary" badgeContent={'TBD'}>
+                    <Badge color="info" badgeContent={'Beta'}>
                         <TravelExploreIcon />
                         </Badge>
                     </ListItemIcon>
@@ -94,11 +96,20 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Updates" />
     </ListItemButton>
+    <Link to='/checkout' style={{ textDecoration: 'none', color: 'black' }}>
     <ListItemButton>
       <ListItemIcon>
-        <VolunteerActivismIcon />
+      <Badge color="warning" badgeContent={'Beta'} variant='dot' 
+      anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}>
+      <VolunteerActivismIcon />
+      </Badge>
+        
       </ListItemIcon>
-      <ListItemText primary="Donate" />
+      <ListItemText primary="TraviDex Plus" />
     </ListItemButton>
+    </Link>
   </React.Fragment>
 );

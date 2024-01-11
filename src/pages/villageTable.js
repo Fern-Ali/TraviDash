@@ -334,7 +334,7 @@ const VillageTable = (props) => {
         const myObj = {}
         const farmingList = {}
         props.allVillages.forEach((item) => (
-            myObj[item.id.toString().slice(4)] = item
+            myObj[item.id.toString().slice(3)] = item
         ))
         if(props.farms !== null) props.farms.forEach((item) => (
             item in myObj ? farmingList[item] = myObj[item] : console.log(`that village isn't in your farmlist.`) 
