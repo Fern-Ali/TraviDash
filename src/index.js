@@ -26,7 +26,9 @@ root.render(
             <App />
             <Routes>
                 <Route path="/" element={<Layout  />}>
-                    <Route index element={<Home />} />
+                    {/* <Route index element={<Home />} /> WE NEED TO CHANGE THIS HOME PAGE ITS OPTIMIZED FOR SOW. FOR NOW REMOVED.*/}
+                    {/* LAST DATES FOR HOME TO RENDER CORRECTLY: 23 FEB, 24 FEB, 25 FEB, 02 MAR 2024 */}
+                    <Route index element={<Advanced />} />
                     <Route path="finder" element={<Finder />} />
                     <Route path="farms" element={<Farms />} />
                     <Route path="advanced" element={<Advanced />} />

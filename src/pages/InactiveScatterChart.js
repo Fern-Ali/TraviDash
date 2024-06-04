@@ -60,7 +60,7 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         y: item.y,
                         player: item.player,
                         village: item.village,
-                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
+                        link: `https://sow.x2.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
                         
                     }
                 )),
@@ -75,7 +75,7 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         y: item.y,
                         player: item.player,
                         village: item.village,
-                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
+                        link: `https://sow.x2.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -90,7 +90,7 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         y: item.y,
                         player: item.player,
                         village: item.village,
-                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
+                        link: `https://sow.x2.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -105,7 +105,7 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         y: item.y,
                         player: item.player,
                         village: item.village,
-                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
+                        link: `https://sow.x2.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
@@ -120,7 +120,7 @@ export default function InactiveScatterChart({ info, belowOne, belowTwo, belowTh
                         y: item.y,
                         player: item.player,
                         village: item.village,
-                        link: `https://sow.x1.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
+                        link: `https://sow.x2.europe.travian.com/karte.php?newdid=16778&x=${item.x}&y=${item.y}`
 
                     }
                 )),
