@@ -143,7 +143,7 @@ export default function NewHome() {
     async function postdata() {
             setLoading(true);
             setOpen(true)
-            axios.post('http://travdex-index.onrender.com/heatmap', {"player_ids": selectedPlayers})  
+            axios.post('https://travdex-index.onrender.com/heatmap', {"player_ids": selectedPlayers})  
               .then(response => {
                 const { data } = response;            
                 
