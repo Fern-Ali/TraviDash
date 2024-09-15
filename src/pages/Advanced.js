@@ -8,6 +8,7 @@ import Orders from './Orders';
 import SkeletonTypography from './SkeletonTypography';
 import Copyright from './Copyright';
 import VillageTable from './villageTable';
+import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -46,8 +47,8 @@ export default function Finder() {
         setOpen(true)
         axios({
             method: "GET",
-            url: `https://travdex-index.onrender.com/${route}`,
-            /*url: `http://localhost:5000/${route}`,*/
+            // url: `https://travdex-index.onrender.com/${route}`,
+            url: `http://localhost:5000/${route}`,
 
         })
             .then((response) => {
@@ -72,8 +73,8 @@ export default function Finder() {
             setOpen(true)
             axios({
                 method: "GET",
-                url: `https://travdex-index.onrender.com/new`,
-                /*url: `http://localhost:5000/${route}`,*/
+                url: `https://travdex-index.onrender.com/inactives`,
+                // url: `http://localhost:5000/inactives`,
 
             })
                 .then((response) => {
@@ -213,6 +214,9 @@ export default function Finder() {
 
                     {/* Recent Orders */}
                     <Grid item xs={12}>
+                    <Typography variant="h6" textAlign={"center"} gutterBottom sx={{pb:2}}>
+                                Sort and filter by the listed categories as you please. By selecting a row and clicking "Add Farms", you may add that village to your TraviDex farmlist.
+                            </Typography> 
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 
                             {/*<button onClick={getData('pop')}>Get SOW Population Data</button>*/}

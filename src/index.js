@@ -6,6 +6,7 @@ import App from './App';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
+import NewHome from "./pages/NewHome"
 import Dashboard from "./pages/Dashboard";
 import Finder from "./pages/Finder";
 import Farms from "./pages/Farms";
@@ -28,7 +29,7 @@ root.render(
                 <Route path="/" element={<Layout  />}>
                     {/* <Route index element={<Home />} /> WE NEED TO CHANGE THIS HOME PAGE ITS OPTIMIZED FOR SOW. FOR NOW REMOVED.*/}
                     {/* LAST DATES FOR HOME TO RENDER CORRECTLY: 23 FEB, 24 FEB, 25 FEB, 02 MAR 2024 */}
-                    <Route index element={<Advanced />} />
+                    <Route index element={<NewHome />} />
                     <Route path="finder" element={<Finder />} />
                     <Route path="farms" element={<Farms />} />
                     <Route path="advanced" element={<Advanced />} />

@@ -37,7 +37,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 
-export default function Home({ curTitle }) {
+export default function Home2({ curTitle }) {
     
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {

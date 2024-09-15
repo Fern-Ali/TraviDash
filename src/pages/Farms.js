@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
-
+import { Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FilterVintageIcon from '@mui/icons-material/FilterVintage';
 import Skeleton from '@mui/material/Skeleton';
@@ -130,7 +130,7 @@ export default function Farms() {
             /*setOpen(true)*/
             axios({
                 method: "GET",
-                url: `https://travdex-index.onrender.com/new`,
+                url: `https://travdex-index.onrender.com/inactives`,
                 /*url: `http://localhost:5000/${route}`,*/
 
             })
@@ -200,6 +200,8 @@ export default function Farms() {
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
+                   
+                            
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 
                             {/*<button onClick={getData('pop')}>Get SOW Population Data</button>*/}

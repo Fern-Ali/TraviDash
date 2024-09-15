@@ -72,8 +72,8 @@ export default function Finder() {
             setOpen(true)
             axios({
                 method: "GET",
-                url: `https://travdex-index.onrender.com/new`,
-                /*url: `http://localhost:5000/${route}`,*/
+                url: `https://travdex-index.onrender.com/inactives`,
+                // url: `http://localhost:5000/inactives`,
 
             })
                 .then((response) => {

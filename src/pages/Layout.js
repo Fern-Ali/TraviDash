@@ -133,11 +133,21 @@ export default function Layout({ children }) {
         console.log('open', open)
     }, [open])
 
+    const darkTheme = createTheme({
+        palette: {
+          mode: 'dark',
+        },
+      });
 
+    const lightTheme = createTheme({
+    palette: {
+        mode: 'light',
+    },
+    });
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
+                <CssBaseline enableColorScheme/>
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
